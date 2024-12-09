@@ -1,0 +1,60 @@
+@font-face {
+  font-family: 'Baloo Paaji 2';
+  font-weight: 400;
+  src:url('../assets/font-family/Baloo_Paaji_2/BalooPaaji2-Regular.ttf')
+}
+@font-face {
+  font-family: 'Baloo Paaji 2';
+  font-weight: 500;
+  src:url('../assets/font-family/Baloo_Paaji_2/BalooPaaji2-Medium.ttf')
+}
+@font-face {
+  font-family: 'Baloo Paaji 2';
+  font-weight: 600;
+  src:url('../assets/font-family/Baloo_Paaji_2/BalooPaaji2-SemiBold.ttf')
+}
+@font-face {
+  font-family: 'Baloo Paaji 2';
+  font-weight: 700;
+  src:url('../assets/font-family/Baloo_Paaji_2/BalooPaaji2-Bold.ttf')
+}
+@font-face {
+  font-family: 'Baloo Paaji 2';
+  font-weight: 800;
+  src:url('../assets/font-family/Baloo_Paaji_2/BalooPaaji2-ExtraBold.ttf')
+}
+
+/* Montserrat */
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 400;
+  src:url('../assets/font-family/Montserrat/Montserrat-Regular.ttf')
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 500;
+  src:url('../assets/font-family/Montserrat/Montserrat-Medium.ttf')
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 600;
+  src:url('../assets/font-family/Montserrat/Montserrat-SemiBold.ttf')
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 700;
+  src:url('../assets/font-family/Montserrat/Montserrat-Bold.ttf')
+}
+@font-face {
+  font-family: 'Montserrat';
+  font-weight: 800;
+  src:url('../assets/font-family/Montserrat/Montserrat-ExtraBold.ttf')
+}
+
+/* Philosopher */
+@font-face {
+  font-family: 'Philosopher';
+  font-weight: 700;
+  font-style: italic;
+  src:url('../assets/font-family/Philosopher/Philosopher-BoldItalic.ttf')
+}
