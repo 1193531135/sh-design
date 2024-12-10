@@ -1,8 +1,4 @@
-# Ai system
-
-#### Description
-dev document
-https://backend-dev.7mfitness.com/notm105/doc.html#/ALL/Dashboard/passBatchUsingPOST
+# sh-design-web
 
 配置
 1.vue

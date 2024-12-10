@@ -6,7 +6,6 @@ import qs from 'querystring'
 import { uuid } from '../tool'
 import md5 from '../../node_modules/md5'
 const axios_1 = https.axios_1
-const axios_2 = https.axios_2
 const showImg = https.default_img_url
 const imgUploadUrl = https.imgUploadUrl
 
@@ -34,14 +33,6 @@ class MessageC {
 let message = new MessageC()
 // load是否要load状态 ，customBox是否进行返回提示
 let request = async (url, data, func, method, Load = false, point = true,) => {
-  // 校验web token，没有就return
-  const rightPsw = "a558d502f6b4e7afef34f84f39cfb4f8"
-  let token = localStorage.getItem('aiSystem-token')
-  if(!token || (rightPsw != md5(token))){
-    localStorage.removeItem('aiSystem-token')
-    message.open({ message: "Token has expired ", type: 'warning' },23333)
-    return router.push('/login')
-  }
   // 加入object解析模式
   let config = {};
   let serverToPython = false
@@ -165,25 +156,10 @@ function uploadFile() {
     return returnData
   }
   return {
-    fireBase: async (config) => { config.url = '/manage/file/upload'; return await func(config) },
+    default: async (config) => { config.url = '/manage/file/upload'; return await func(config) },
     comPress: async (config) => { config.url = '/manage/file/uploadCompressionFile'; return await func(config) },
-    cloudFlare: async (config) => { config.url = '/manage/file/uploadR2'; return await func(config) },
     s3: async (config) => { config.url = '/manage/file/getTempUploadUrl'; return await s3Func(config) }
   }
-}
-let request2 = (url, data, func, method) => {
-  axios_2({
-    method: method || 'post',
-    url,
-    params: method === 'get' ? data : null,
-    data: method === 'get' ? null : data,
-  }).then((data) => {
-    func(data)
-  }).catch((data) => {
-    Message({ message: "服务器错误" + data, type: 'error' })
-    func(data, 'error')
-    throw data
-  })
 }
 
 axios_1.interceptors.request.use(config => {
@@ -203,5 +179,5 @@ axios_1.interceptors.request.use(config => {
   return config
 })
 export default {
-  request, showImg, imgUploadUrl, request2, uploadFile
+  request, showImg, imgUploadUrl, uploadFile
 }

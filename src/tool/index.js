@@ -161,8 +161,30 @@ class Debounce {
   }
 }
 
+// 渲染校验
+let renderingCheck = function(permissionAll, routerItem){
+  // 开发模式给所有权限
+  if(process.env.NODE_ENV === 'development'){
+    return true
+  }
+  // 暂不校验权限
+  if(1){ return true }
+  // routerItem 路由的节点，permission 当前路由的展示权限，cover项目or资源是否包含该路由
+  let state = false
+  // 判断父节点的情况
+  if (routerItem.children) {
+    routerItem.children.some(i => {
+      if (renderingCheck(permissionAll, i)) {
+        state = true
+        return true
+      }
+    })
+    return state
+  }
+  return state
+}
 let functions = {
-  cpt, getFormatTime, TimeShow, deepCopy, refDeepSearch, log, uuid,Debounce
+  cpt, getFormatTime, TimeShow, deepCopy, refDeepSearch, log, uuid,Debounce,renderingCheck
 }
 // 全局注册方法
 window.vueSystem = functions

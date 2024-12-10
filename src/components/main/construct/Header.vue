@@ -1,29 +1,30 @@
 <template>
   <div class="bgcdiv">
     <div class="tit_text">
-      <!-- <img src="../../../assets/lion.png" alt style="padding-left:20px" /> -->
-      <span>AI System</span>
+      <img src="../../../assets/image/home/logo.png" alt style="padding-left:20px" />
     </div>
-    <div class="head-ll">
-      <div class="user">
-        <!-- <img class="img1" :src="headeimg" /> -->
-        <div class="username hover">
-          <el-dropdown @command="selectChange">
-            <span class="el-dropdown-link">
-              {{ userName
-              }}
-              <i class="el-icon-arrow-down el-icon--right"></i>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <!-- <el-dropdown-item icon="el-icon-user" command="toMymessage">My Account</el-dropdown-item> -->
-              <el-dropdown-item icon="el-icon-warning-outline" command="signout">Sign out</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+    <div class="head-list">
+      <div :class="`head-list-item ${headList[item].select ? 'selected' : ''}`" v-for="item in Object.keys(headList)"
+        :key="item" @click="$router.push(headList[item].path)">
+        <span>{{ headList[item].name }}</span>
+      </div>
+    </div>
+    <div class="head-end">
+      <div class="username hover">
+        <div class="not-login" v-if="!isLogin">
+          <span>注册</span>/<span>登录</span>
         </div>
-        <!-- <div class="exit" @click="signOut">
-                <p class="swicth_1">Logout</p>
-                <i class="el-icon-switch-button"></i>
-        </div>-->
+        <el-dropdown v-else @command="selectChange">
+          <span class="el-dropdown-link">
+            {{ userName
+            }}
+            <i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <!-- <el-dropdown-item icon="el-icon-user" command="toMymessage">My Account</el-dropdown-item> -->
+            <el-dropdown-item icon="el-icon-warning-outline" command="signout">Sign out</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
       </div>
     </div>
   </div>
@@ -34,30 +35,26 @@ export default {
   name: "Header",
   data() {
     return {
-      headeimg: require("../../../assets/default_head.jpg"),
+      isLogin:false,
       headList: {
-        // firstPage: {
-        //   name: "Home",
-        //   path: "/main",
-        //   show: true
-        // },
-        programPage: {
-          name: "APP Project",
-          path: "/projectHome-list",
-          show: "program",
+        homePage: {
+          name: "首页",
+          path: "/home/list",
           select: false
         },
-        resourcePage: {
-          name: "Basic Resource",
-          // 资源管理默认跳转到animation
-          path: "/operationRecord-list",
-          show: "resource",
+        imageBase: {
+          name: "素材图库",
+          path: "",
           select: false,
         },
-        accountPage: {
-          name: "User Account",
-          path: "/accountManage-list",
-          show: "user",
+        imageDesign: {
+          name: "图案定制",
+          path: "",
+          select: false,
+        },
+        designer: {
+          name: "设计师",
+          path: "",
           select: false,
         }
       }
@@ -140,38 +137,24 @@ export default {
 }
 
 .bgcdiv {
-  height: 50px;
-  min-height: 50px;
   width: 100%;
+  height: 100%;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 2;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 0 20px;
-}
-
-.bgcdiv>div {
-  /* color: white; */
-}
-
-.head-ll {
-  flex: 8.5;
-  display: flex;
-  justify-content: left;
+  color: var(--color--);
 }
 
 .tit_text {
-  flex: 1.5;
   font-size: 20px;
   height: 100%;
   display: flex;
   align-items: center;
   box-sizing: border-box;
-  color: #409eff;
 }
 
 .tit_text img {
@@ -192,7 +175,7 @@ export default {
 
 .head-list {
   display: flex;
-  flex: 6;
+  font-size: 2.53vh;
 }
 
 .head-list-item {
@@ -200,8 +183,6 @@ export default {
   cursor: pointer;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
   /* color: #303133; */
-  color: #606266;
-  font-size: 14px;
 }
 
 .head-list-item:nth-child(1) {
@@ -209,22 +190,14 @@ export default {
 }
 
 .head-list-item>span:hover {
-  color: #409eff;
-  border-bottom: 1px solid #409eff;
+  border-bottom: 1px solid var(--color--);
 }
 
-.selected {
-  color: #409eff;
-}
-
-.user {
-  /* width: 200px; */
-  font-size: 14px;
-  flex: 2;
+.head-end {
   display: flex;
-  justify-content: right;
-  align-items: center;
-  margin-right: 20px;
+  justify-content: left;
+  color: var(--color2--);
+  font-size: 1.95vh;
 }
 
 .exit {
@@ -236,11 +209,8 @@ export default {
   color: red;
 }
 
-.username {
-  margin: 0 30px 0 15px;
-}
-
 .el-dropdown {
   background-color: inherit;
+  color: inherit;
 }
 </style>

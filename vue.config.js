@@ -1,5 +1,5 @@
 
-let dirName = 'AiSystem'
+let dirName = 'sh-desginoxi'
 
 module.exports = {
   publicPath: './',
