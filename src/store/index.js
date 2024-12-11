@@ -1,20 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import base from './base'
 
 Vue.use(Vuex)
-// 对Base做点兼容处理
-Object.keys(base).some(key => {
-  if(base[key].length > 0){
-    if(typeof base[key][0] === 'string'){
-      base[key] = base[key].map(string => { return {label:string,value:string} })
-    }else{
-      if(!base[key][0].value && base[key][0].value !== 0 && base[key][0].value !== false){
-        base[key] = base[key].map(item => { return {label:item.label,value:item.label} })
-      }
-    }
-  }
-})
+
 export default new Vuex.Store({
     strict: true,
     state: {
@@ -28,7 +16,6 @@ export default new Vuex.Store({
           styleType: "DARK",
         },
         default_file_url: '',
-        optionBase: base,
     },
     mutations: {
         modifyData(state, data) {

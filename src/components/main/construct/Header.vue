@@ -1,7 +1,7 @@
 <template>
   <div class="bgcdiv">
     <div class="tit_text">
-      <img src="../../../assets/image/home/logo.png" alt style="padding-left:20px" />
+      <img :src="icon" alt style="padding-left:20px" />
     </div>
     <div class="head-list">
       <div :class="`head-list-item ${headList[item].select ? 'selected' : ''}`" v-for="item in Object.keys(headList)"
@@ -10,9 +10,9 @@
       </div>
     </div>
     <div class="head-end">
-      <div class="username hover">
+      <div class="username">
         <div class="not-login" v-if="!isLogin">
-          <span>注册</span>/<span>登录</span>
+          <span class="head-hover">注册</span>/<span class="head-hover">登录</span>
         </div>
         <el-dropdown v-else @command="selectChange">
           <span class="el-dropdown-link">
@@ -26,16 +26,30 @@
           </el-dropdown-menu>
         </el-dropdown>
       </div>
+      <!-- selectLanguage -->
+      <el-dropdown trigger="click" @command="selectLanguage">
+        <span class="el-dropdown-link">
+          {{ language }}
+          <i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <!-- <el-dropdown-item icon="el-icon-user" command="toMymessage">My Account</el-dropdown-item> -->
+          <el-dropdown-item v-for="lgItem in languageList" :key="lgItem.value"
+            :command="lgItem.value">{{ lgItem.label }}</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </div>
 </template>
 
 <script>
+const logo = require("../../../assets/image/home/logo.png")
+const logoWhite = require("../../../assets/image/home/logo-white.png")
 export default {
   name: "Header",
   data() {
     return {
-      isLogin:false,
+      isLogin: false,
       headList: {
         homePage: {
           name: "首页",
@@ -57,10 +71,21 @@ export default {
           path: "",
           select: false,
         }
-      }
+      },
+      language: "中文",
+      languageList: [
+        { label: "中文", value: "zh" },
+        { label: "英语", value: "en" },
+      ]
     };
   },
   computed: {
+    icon() {
+      return this.renderType === "DARK" ? logoWhite : logo
+    },
+    renderType() {
+      return this.$store.state.styleConfig.styleType
+    },
     userName() {
       return this.$store.state.userData.realName;
     },
@@ -80,54 +105,41 @@ export default {
   },
   methods: {
     headSelectHandle(path) {
-      // proj
-      let select = ''
-      if (path.indexOf('-proj') != -1 || path === '/projectHome-list') {
-        select = 'program'
-      }
-      else if (path === '/accountManage-list' || path.indexOf('accountManage-editor') != -1) {
-        select = 'user'
-      }
-      // 上面已经筛选掉proj和user了所以满足这个正则的都是资源
-      else if (/[a-z A-Z 0-9]{1,}-(list|editor)/.test(path)) {
-        select = 'resource'
-      }
       Object.keys(this.headList).some(item => {
         this.headList[item].select = false
-        if (this.headList[item].show === select) {
+        if (this.headList[item].path === path) {
           this.headList[item].select = true
         }
       })
     },
     selectChange(command) {
-      if (command === "toMymessage") {
-        this.$router.push("/my-account");
-      }
       if (command === "signout") {
         this.$confirm("Are you sure?", "hint", { type: "warning" })
           .then(() => {
             sessionStorage.clear();
-            localStorage.removeItem("aiSystem-token");
+            localStorage.removeItem("sh-token");
             // 刷新清内存数据
             this.$router.push("/login");
           })
           .catch(() => { });
       }
+    },
+    selectLanguage(command) {
+      // 切换语言
+      this.language = this.languageList.filter(i => i.value === command)[0].label
     }
   },
   created() {
-    let username = localStorage.getItem("username");
-    if (username) {
-      this.$store.commit("modifyData", {
-        name: "username",
-        newdata: username
-      });
-    }
   }
 };
 </script>
 
 <style scoped>
+.head-hover:hover {
+  border-bottom: 1px solid var(--color--);
+  cursor: pointer;
+}
+
 .el-icon-switch-button {
   display: none;
 }
@@ -158,7 +170,7 @@ export default {
 }
 
 .tit_text img {
-  height: 20px;
+  height: 3.8vh;
   object-fit: contain;
   margin-right: 10px;
   top: -3px;
@@ -176,21 +188,20 @@ export default {
 .head-list {
   display: flex;
   font-size: 2.53vh;
+  gap: 3.9vh;
 }
 
 .head-list-item {
-  padding: 0 10px;
   cursor: pointer;
-  border-left: 1px solid rgba(0, 0, 0, 0.1);
+  padding-bottom: 2px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0)
   /* color: #303133; */
 }
 
-.head-list-item:nth-child(1) {
-  border: 0;
-}
-
-.head-list-item>span:hover {
-  border-bottom: 1px solid var(--color--);
+.head-list-item:hover,
+.selected 
+{
+  border-color: var(--color--);
 }
 
 .head-end {
@@ -198,6 +209,7 @@ export default {
   justify-content: left;
   color: var(--color2--);
   font-size: 1.95vh;
+  gap: 3.9vh;
 }
 
 .exit {
@@ -212,5 +224,6 @@ export default {
 .el-dropdown {
   background-color: inherit;
   color: inherit;
+  font-size: inherit;
 }
 </style>

@@ -3,7 +3,7 @@
     <div class="conta" :style="'height:' + hei + 'px'">
       <div class="conta2">
         <div class="header">
-          <div>AI System</div>
+          <div>System</div>
         </div>
         <div class="input">
           <!-- <div>Account</div> -->
@@ -22,18 +22,6 @@
           <!-- <div @click="$router.push('/register')">Register</div> -->
         </div>
       </div>
-      <!-- <div class="mobile_c">
-                <div class="mobile_c_title">后台管理系统</div>
-                <p style="height:1rem"></p>
-                <div class="input2">
-                    <input placeholder="账号" v-model="account"/>
-                </div>
-                <div class="input2">
-                    <input  placeholder="密码" v-model="password" type="password"/>
-                </div>
-                <p style="height:3rem"></p>
-                <el-button class="btn" type="primary" @click="login">登录</el-button>
-      </div>-->
     </div>
   </div>
 </template>
@@ -57,8 +45,6 @@ export default {
   },
   methods: {
     async login() {
-      const rightPsw = "a558d502f6b4e7afef34f84f39cfb4f8"
-      const account = "admin"
       if (!this.password) {
         this.passwordError = "Please input password";
       }
@@ -73,14 +59,7 @@ export default {
       this.passwordError = "";
       this.loading = true
       let state = await new Promise(resolve => {
-        setTimeout(() => {
-          if (this.account === account && this.$md5(this.password) === rightPsw)
-            resolve(true);
-          else {
-            resolve(false);
-            this.$message({ message: "Account or password error", type: "warning" })
-          }
-        }, 1000);
+        setTimeout(() => {}, 1000);
       })
       this.loading = false
       if (state) {
@@ -94,7 +73,7 @@ export default {
       console.log(val);
     },
     localDown(token) {
-      localStorage.setItem("aiSystem-token", token);
+      localStorage.setItem("sh-token", token);
     }
   },
   created() { }

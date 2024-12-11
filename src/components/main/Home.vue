@@ -33,16 +33,16 @@ export default {
   methods: {
     colorRender(){
       const renderMeum = {
-        "DARK": "--color--: white;--color2--: white;--bgcolor--:black;",
-        "Light": "--color--: white;--color2--: white;--bgcolor--:black;",
+        "DARK": "--color--: white;--color2--: white;--color3--: white;--bgcolor--:black;",
+        "LIGHT": "--color--: black;--color2--: #656578;--color3--: #3D3D51;--bgcolor--:white;",
       }
       return renderMeum[this.renderType]
     },
     // 获取样式数据
     getStyleData() {
       return new Promise((re) => {
-        setTimeout(() => { 
-          re({ styleType: "DARK", })
+        setTimeout(() => {
+          re({ styleType: this.$route.query.styleType || "DARK", })
         }, 2000)
       })
     }
@@ -53,7 +53,7 @@ export default {
     // 获取style后开始进入加载状态
     this.loading = true
     // 加载一些东西
-    await new Promise(re => {setTimeout(() => {}, 4000)})
+    await new Promise(re => {setTimeout(() => { re() }, 4000)})
     this.loading = false
     this.loaded = true
   }

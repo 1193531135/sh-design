@@ -2,11 +2,13 @@
   <div class="loading">
     <div class="icon-container">
       <div class="bg-slider"></div>
-      <img src="../../../assets/image/home/logo-loading.png" alt="">
+      <img :src="loadingLogoUrl" alt="">
     </div>
   </div>
 </template>
 <script>
+const loadingDark = require("../../../assets/image/home/logo-loading-dark.png")
+const loadingLight = require("../../../assets/image/home/logo-loading-light.png")
 export default {
   data() {
     return {};
@@ -14,6 +16,9 @@ export default {
   computed: {
     renderType(){
       return this.$store.state.styleConfig.styleType
+    },
+    loadingLogoUrl(){
+      return this.renderType === "DARK" ? loadingDark : loadingLight
     }
   },
   metheds:{
@@ -37,12 +42,13 @@ export default {
   height: 18.55vh;
   position: relative;
   overflow: hidden;
+  background-color: #CCCCCC;
   .bg-slider{
     width: 100%;
     height: 100%;
     position: absolute;
     left: -100%;
-    animation: 3s linear 1s infinite running slidein;
+    animation: 2s linear 1s infinite running slidein;
     background-color: var(--color--);
   }
   img{

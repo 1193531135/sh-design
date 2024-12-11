@@ -1,5 +1,5 @@
 
-let dirName = 'sh-desginoxi'
+let dirName = 'sh-design'
 
 module.exports = {
   publicPath: './',
@@ -13,7 +13,7 @@ module.exports = {
       "Cross-Origin-Resource-Policy": "cross-origin",
     },
     disableHostCheck:true,
-    port:8000
+    // port:8000
     // host:'127.0.0.1'
   },
   configureWebpack:{

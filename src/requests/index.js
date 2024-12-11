@@ -61,7 +61,7 @@ let request = async (url, data, func, method, Load = false, point = true,) => {
     }
     // token超时
     if (res.data.code === 1001) {
-      localStorage.removeItem('aiSystem-token')
+      localStorage.removeItem('sh-token')
       router.push('/login')
     }
     if (res.data.code != 200) {
@@ -163,19 +163,13 @@ function uploadFile() {
 }
 
 axios_1.interceptors.request.use(config => {
-  config.headers['token'] = localStorage.getItem('aiSystem-token')
+  config.headers['token'] = localStorage.getItem('sh-token')
   let projId = router.app.$route.params["projId"]
   config.headers['projId'] = projId || ''
   if (config.data && config.data.formData) {
     config.data.formData = ''
     config.data = qs.stringify(config.data)
   }
-  // // 对get请求做encode编码
-  // if(config.method === "GET"){
-  //   for(let item in config.data){
-  //     config.data[item] = encodeURIComponent(config.data[item]);
-  //   }
-  // }
   return config
 })
 export default {
