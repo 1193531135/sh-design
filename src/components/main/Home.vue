@@ -34,7 +34,7 @@ export default {
     colorRender(){
       const renderMeum = {
         "DARK": "--color--: white;--color2--: white;--color3--: white;--bgcolor--:black;",
-        "LIGHT": "--color--: black;--color2--: #656578;--color3--: #3D3D51;--bgcolor--:white;",
+        "LIGHT": "--color--: black;--color2--: black;--color3--: #3D3D51;--bgcolor--:white;",
       }
       return renderMeum[this.renderType]
     },
