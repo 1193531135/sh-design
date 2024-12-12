@@ -14,42 +14,9 @@ textarea {
   font-weight: inherit
 }
 
-/* @import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@400;500;600;700;800&display=swap'); */
-/* @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;500&display=swap'); */
 @import url('./fontFamliy.css');
 @import url(./animation.css);
-/* @import url('./tinyeditor.css'); */
-/* *::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
-} */
 
-/* 滑轮轨道 */
-/* *::-webkit-scrollbar-track {
-  background: white;
-  border-radius: 2px;
-} */
-
-/* 滑块样式 */
-/* *::-webkit-scrollbar-thumb {
-  background: rgb(221, 222, 224);
-  border-radius: 20px;
-  cursor: pointer !important;
-}
-
-*::-webkit-scrollbar-thumb:hover {
-  background: rgb(199, 201, 204);
-  cursor: pointer;
-}
-
-*::-webkit-scrollbar-corner {
-  background: #179a16;
-} */
-
-.errorInput {
-  /* box-shadow: 0 0 0 1px #f56c6c; */
-  border: 1px solid #f56c6c !important;
-}
 
 /* 按钮取消hover */
 .el-button:hover:not() {
@@ -62,53 +29,4 @@ textarea {
 .hover:hover {
   opacity: 0.8;
   cursor: pointer;
-}
-
-/* 全局按钮禁用样式 */
-.left-btns .is-disabled {
-  opacity: 0.4;
-}
-
-/* 全局状态图标大小 */
-.cross-icon-luyin {
-  font-size: 12px;
-}
-
-/* 去掉.el-dialog全局默认的阴影 */
-.el-dialog {
-  box-shadow: none !important;
-  border-radius: 4px !important;
-}
-
-/* 自定义提示弹窗 */
-.el-icon-question.point {
-  & {
-    position: relative;
-    cursor: pointer;
-  }
-
-  &:hover::before {
-    opacity: 0.8;
-  }
-
-  &::after {
-    content: attr(data-title);
-    display: none;
-    position: absolute;
-    z-index: 10;
-    left: 100%;
-    top: 100%;
-    border: 1px solid rgba(0, 0, 0, 1);
-    color: black;
-    background-color: white;
-    padding: 5px;
-    font-size: 12px;
-    line-height: 20px;
-    word-break: keep-all;
-    white-space: pre;
-  }
-
-  &:hover::after {
-    display: inline;
-  }
 }

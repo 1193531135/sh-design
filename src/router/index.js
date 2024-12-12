@@ -4,10 +4,6 @@ Vue.use(Router)
 // FatherComponent = Vue.extend({rander:h => h('router-view')})
 let routes = [
   {
-    path: '/login',
-    component:() =>  import("../components/main/Login.vue")
-  },
-  {
     path: '/',
     redirect: '/home'
   },
