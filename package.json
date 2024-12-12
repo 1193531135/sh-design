@@ -8,19 +8,12 @@
     "build": "set NODE_OPTIONS=--openssl-legacy-provider && vue-cli-service build"
   },
   "dependencies": {
-    "@tinymce/tinymce-vue": "^3.2.8",
     "axios": "^0.19.2",
     "core-js": "^3.6.5",
-    "echarts": "^5.1.2",
     "element-ui": "^2.15.14",
-    "firebase": "^9.6.9",
-    "hls.js": "^1.4.0",
-    "jszip": "^3.7.1",
     "less": "^3.13.1",
     "less-loader": "^5.0.0",
     "md5": "^2.3.0",
-    "sortablejs": "^1.14.0",
-    "videojs-contrib-hls": "^5.15.0",
     "vue": "^2.6.11",
     "vue-router": "^3.0.7",
     "vuex": "^3.5.1"
