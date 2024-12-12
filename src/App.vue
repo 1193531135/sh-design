@@ -16,7 +16,7 @@ export default {
 };
 </script>
 
-<style>
+<style> 
 #app {
   font-family: "Zihunchuangcuyuan";
   font-weight: 700;

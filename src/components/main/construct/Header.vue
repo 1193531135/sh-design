@@ -11,20 +11,35 @@
     </div>
     <div class="head-end">
       <div class="username">
-        <div class="not-login" v-if="!isLogin">
-          <span class="head-hover">注册</span>/<span class="head-hover">登录</span>
+        <div class="not-login" v-show="!isLogin">
+          <span class="head-hover">注册</span>/<span class="head-hover" @click="simulateLogin">登录</span>
         </div>
-        <el-dropdown v-else @command="selectChange">
-          <span class="el-dropdown-link">
-            {{ userName
-            }}
-            <i class="el-icon-arrow-down el-icon--right"></i>
-          </span>
-          <el-dropdown-menu slot="dropdown">
-            <!-- <el-dropdown-item icon="el-icon-user" command="toMymessage">My Account</el-dropdown-item> -->
-            <el-dropdown-item icon="el-icon-warning-outline" command="signout">Sign out</el-dropdown-item>
-          </el-dropdown-menu>
-        </el-dropdown>
+        <template v-show="!isLogin">
+          <img src="../../../assets/image/home/heart.png">
+          <img src="../../../assets/image/home/cart.png">
+          <!-- 用户设置 -->
+          <el-dropdown @command="accountOption">
+            <span class="el-dropdown-link">
+              <img src="../../../assets/image/home/account.png" alt="">
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <!-- <el-dropdown-item icon="el-icon-user" command="toMymessage">My Account</el-dropdown-item> -->
+              <el-dropdown-item icon="el-icon-warning-outline" command="signout">Sign out</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+          <!-- 关于 -->
+          <el-dropdown @command="selectChange">
+            <span class="el-dropdown-link">
+              <img src="../../../assets/image/home/account.png" alt="">
+              <i class="el-icon-arrow-down el-icon--right"></i>
+            </span>
+            <el-dropdown-menu slot="dropdown">
+              <!-- <el-dropdown-item icon="el-icon-user" command="toMymessage">My Account</el-dropdown-item> -->
+              <el-dropdown-item icon="el-icon-warning-outline" command="signout">Sign out</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+        </template>
       </div>
       <!-- selectLanguage -->
       <el-dropdown trigger="click" @command="selectLanguage">
@@ -34,8 +49,8 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <!-- <el-dropdown-item icon="el-icon-user" command="toMymessage">My Account</el-dropdown-item> -->
-          <el-dropdown-item v-for="lgItem in languageList" :key="lgItem.value"
-            :command="lgItem.value">{{ lgItem.label }}</el-dropdown-item>
+          <el-dropdown-item v-for="lgItem in languageList" :key="lgItem.value" :command="lgItem.value">{{ lgItem.label
+            }}</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -112,7 +127,7 @@ export default {
         }
       })
     },
-    selectChange(command) {
+    accountOption(command) {
       if (command === "signout") {
         this.$confirm("Are you sure?", "hint", { type: "warning" })
           .then(() => {
@@ -127,6 +142,9 @@ export default {
     selectLanguage(command) {
       // 切换语言
       this.language = this.languageList.filter(i => i.value === command)[0].label
+    },
+    simulateLogin() {
+      this.isLogin = true
     }
   },
   created() {
@@ -195,12 +213,11 @@ export default {
   cursor: pointer;
   padding-bottom: 2px;
   border-bottom: 1px solid rgba(0, 0, 0, 0)
-  /* color: #303133; */
+    /* color: #303133; */
 }
 
 .head-list-item:hover,
-.selected 
-{
+.selected {
   border-color: var(--color--);
 }
 
