@@ -8,7 +8,7 @@
           <div class="input-content">
             <div class="search-input">
               <img class="search-icon" src="../../../assets/image/home/search.png">
-              <input type="text" placeholder="秋冬季节的油画质感设计">
+              <input v-model="searchKey" type="text" placeholder="秋冬季节的油画质感设计">
             </div>
             <div class="search-button" @click="search">
               <div class="hover">搜索</div>
@@ -23,7 +23,9 @@
 const DarkVideo = require("../../../assets/bg-video.mp4")
 export default {
   data() {
-    return {};
+    return {
+      searchKey:""
+    };
   },
   computed: {
     videoUrl() {
@@ -33,6 +35,12 @@ export default {
   methods: {
     search() {
       // search
+      this.$router.push({
+        name: "dataBase",
+        query: {
+          search: this.searchKey
+        }
+      })
     }
   }
 };

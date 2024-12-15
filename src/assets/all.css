@@ -30,3 +30,30 @@ textarea {
   opacity: 0.8;
   cursor: pointer;
 }
+/* sh 特殊样式 */
+.sh-select {
+  background-color: #F3F3F3;
+}
+.sh-popuop {
+  min-width: 120px;
+  border-radius: 10px !important;
+  padding: 0 !important;
+  font-family: 'Zihunchuangcuyuan';
+  font-weight: 600;
+  border: 1px solid #ECECEC;
+}
+.sh-popuop .el-dropdown-menu__item{
+  height: 2.5vw;
+  padding: 0.625vw 0.83vw;
+  font-size: 0.833vw;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ECECEC;
+  border-collapse:collapse;
+  color: black !important;
+
+}
+.sh-popuop .el-dropdown-menu__item:hover{
+  background-color: #F3F3F3 !important;
+}

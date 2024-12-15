@@ -83,7 +83,7 @@ export default {
     position: absolute;
     top: 0;
     background-color: rgba(0, 0, 0, 0);
-    height: 7.8vh;
+    height: 4.38vw;
   }
 
   .home-con {
