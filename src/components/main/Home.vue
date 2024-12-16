@@ -60,13 +60,7 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="less">
-.swicth_home_1 {
-  height: 15px;
-  width: 100%;
-}
-
 
 .home-main {
   background-color: rgb(247, 247, 247);
@@ -83,7 +77,7 @@ export default {
     position: absolute;
     top: 0;
     background-color: rgba(0, 0, 0, 0);
-    height: 4.38vw;
+    height: 80px;
   }
 
   .home-con {

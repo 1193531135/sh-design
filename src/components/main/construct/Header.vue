@@ -86,7 +86,7 @@ export default {
         },
         imageBase: {
           name: "素材图库",
-          path: "",
+          path: "/dataBase/list",
           select: false,
         },
         imageDesign: {
@@ -308,8 +308,8 @@ export default {
 .el-dropdown {
   padding: 10px;
   color: inherit;
-  border-radius: 1.64vw;
-  font-size: 1.09vw;
+  border-radius: 30px;
+  font-size: 20px;
   cursor: pointer;
 
   .el-dropdown-link {
