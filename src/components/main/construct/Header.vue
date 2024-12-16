@@ -20,7 +20,8 @@
           <img @click="toCart" v-show="this.renderType !== 'DARK'" src="../../../assets/image/home/cart.png">
           <img @click="toCart" v-show="this.renderType == 'DARK'" src="../../../assets/image/home/cart-white.png">
           <!-- 用户设置 -->
-          <el-dropdown trigger="click" :class="isFocUser ? 'sh-select' : ''" @command="accountOption"
+          <el-dropdown trigger="click" :class="isFocUser ? 'sh-select' : ''" @command="accountSelect"
+          placement="bottom-start"
             @visible-change="(val) => isFocUser = val">
             <div class="el-dropdown-link">
               <img v-show="this.renderType !== 'DARK'" src="../../../assets/image/home/account.png" alt="">
@@ -29,12 +30,13 @@
               <img v-show="this.renderType == 'DARK'" src="../../../assets/image/home/select-down-white.png" alt="">
             </div>
             <el-dropdown-menu slot="dropdown" class="sh-popuop">
-              <!-- <el-dropdown-item icon="el-icon-user" command="toMymessage">My Account</el-dropdown-item> -->
-              <el-dropdown-item icon="el-icon-warning-outline" command="signout">Sign out</el-dropdown-item>
+              <el-dropdown-item v-for="item in accountOption" :key="item.value" :command="item.value">{{ item.label
+                }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
           <!-- 关于 -->
-          <el-dropdown trigger="click" :class="isFocError ? 'sh-select' : ''" @command="aboutOption"
+          <el-dropdown trigger="click" :class="isFocError ? 'sh-select' : ''" @command="aboutSelect"
+          placement="bottom-start"
             @visible-change="(val) => isFocError = val">
             <div class="el-dropdown-link">
               <img v-show="this.renderType !== 'DARK'" src="../../../assets/image/home/error.png" alt="">
@@ -43,14 +45,15 @@
               <img v-show="this.renderType == 'DARK'" src="../../../assets/image/home/select-down-white.png" alt="">
             </div>
             <el-dropdown-menu slot="dropdown" class="sh-popuop">
-              <!-- <el-dropdown-item icon="el-icon-user" command="toMymessage">My Account</el-dropdown-item> -->
-              <el-dropdown-item icon="el-icon-warning-outline" command="signout">Sign out</el-dropdown-item>
+              <el-dropdown-item v-for="item in aboutOption" :key="item.value" :command="item.value">{{ item.label
+                }}</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
       </div>
       <!-- selectLanguage -->
       <el-dropdown trigger="click" :class="isFocLanguage ? 'sh-select' : ''" @command="selectLanguage"
+      placement="bottom-start"
         @visible-change="(val) => isFocLanguage = val">
         <div class="el-dropdown-link">
           <div>{{ language }}</div>
@@ -98,6 +101,16 @@ export default {
         }
       },
       language: "中文",
+      accountOption: [
+        { label: "购买记录", value: "购买记录" },
+        { label: "我的优惠", value: "我的优惠" },
+        { label: "帮助中心", value: "帮助中心" },
+        { label: "退出登录", value: "退出登录" },
+      ],
+      aboutOption: [
+        { label: "隐私与安全", value: "隐私与安全" },
+        { label: "关于我们", value: "关于我们" },
+      ],
       languageList: [
         { label: "中文", value: "zh" },
         { label: "英语", value: "en" },
@@ -150,7 +163,7 @@ export default {
     },
     toHeart() { },
     toCart() { },
-    accountOption(command) {
+    accountSelect(command) {
       if (command === "signout") {
         this.$confirm("Are you sure?", "hint", { type: "warning" })
           .then(() => {
@@ -162,7 +175,7 @@ export default {
           .catch(() => { });
       }
     },
-    aboutOption() { },
+    aboutSelect() { },
     selectLanguage(command) {
       // 切换语言
       this.language = this.languageList.filter(i => i.value === command)[0].label
@@ -213,7 +226,7 @@ export default {
 }
 
 .tit_text img {
-  height: 2.13vw;
+  height: 39px;
   object-fit: contain;
   margin-right: 10px;
   top: -3px;
@@ -230,8 +243,8 @@ export default {
 
 .head-list {
   display: flex;
-  font-size: 1.42vw;
-  gap: 1.17vw;
+  font-size: 26px;
+  gap: 40px;
   flex: 1;
   justify-content: center;
 }
@@ -256,29 +269,29 @@ export default {
   justify-content: left;
   align-items: center;
   color: var(--color2--);
-  font-size: 1.09vw;
+  font-size: 20px;
 
   .not-login {
-    margin-right: 0.54vw;
-    padding: 0.54vw;
+    margin-right: 10px;
+    padding: 10px;
   }
 
   .login-container {
-    gap: 0.52vw;
+    gap: 10px;
     display: flex;
     align-items: center;
-    margin-right: 0.52vw;
+    margin-right: 10px;
 
     img {
-      width: 1.31vw;
+      width: 24px;
     }
 
     >img {
-      padding: 0.54vw;
+      padding: 10px;
     }
 
     .el-dropdown {
-      padding: 0.54vw;
+      padding: 10px;
     }
   }
 }
@@ -293,16 +306,18 @@ export default {
 }
 
 .el-dropdown {
-  padding: 0.54vw;
+  padding: 10px;
   color: inherit;
   border-radius: 1.64vw;
   font-size: 1.09vw;
   cursor: pointer;
+
   .el-dropdown-link {
     display: flex;
     align-items: center;
+
     img {
-      width: 1.31vw;
+      width: 24px;
     }
   }
 }

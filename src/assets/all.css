@@ -40,8 +40,10 @@ textarea {
   padding: 0 !important;
   font-family: 'Zihunchuangcuyuan';
   font-weight: 600;
+  overflow: hidden;
   border: 1px solid #ECECEC;
 }
+/* 下拉菜单弹窗 */
 .sh-popuop .el-dropdown-menu__item{
   height: 2.5vw;
   padding: 0.625vw 0.83vw;
@@ -56,4 +58,47 @@ textarea {
 }
 .sh-popuop .el-dropdown-menu__item:hover{
   background-color: #F3F3F3 !important;
+}
+/* 级联弹窗 */
+.sh-popuop .el-cascader-panel .el-cascader-menu{
+  border: 0;
+  min-width: 120px;
+  overflow: hidden;
+}
+.sh-popuop .el-cascader-panel .el-cascader-menu .el-cascader-menu__list{
+  padding: 0;
+}
+.sh-popuop .el-cascader-panel .el-cascader-menu:nth-of-type(1){
+  background-color: #F3F3F3;
+}
+.sh-popuop .el-cascader-panel .el-cascader-menu:nth-of-type(1) .in-active-path{
+  background-color: white;
+  font-weight: 800;
+  color: black;
+}
+/* 选中的最后一级 */
+.sh-popuop .el-cascader-panel .el-cascader-menu .is-active{
+  color: black;
+}
+.sh-popuop .el-cascader-panel .el-cascader-menu .is-active .el-icon-check {
+  left: auto;
+  right: 10px;
+}
+
+/* 搜索框 */
+.sh-popuop .el-select-dropdown__list{
+  padding: 0;
+}
+.sh-popuop .el-select-dropdown__item{
+  padding: 0 30px;
+  display: flex;
+  align-items: center;
+}
+.sh-popuop .selected
+{
+  background-color: #F3F3F3;
+  color: black !important;
+}
+.sh-popuop .selected .el-icon-check{
+  opacity: 1 !important;
 }
