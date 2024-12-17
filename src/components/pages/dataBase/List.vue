@@ -206,8 +206,7 @@ export default {
           img.src = i.url
           i.load = !img.complete
         })
-        // this.listData = randerListData
-        this.listData = []
+        this.listData = randerListData
         // 初始展示条数
         this.randerIndex = 20
         // 首次布局
