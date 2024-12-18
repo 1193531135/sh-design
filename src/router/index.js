@@ -24,6 +24,11 @@ let routes = [
         name: "dataBase",
         component:() => import("../components/pages/dataBase/List.vue")
       },
+      {
+        path: '/dataBase/detail',
+        name: "dataBase",
+        component:() => import("../components/pages/dataBase/Detail.vue")
+      },
     ]
   },
 ]

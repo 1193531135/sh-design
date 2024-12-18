@@ -40,7 +40,7 @@
         <div v-for="(itemData, index) in listData.filter((i, index) => index < randerIndex)" :key="index"
           :ref="`card-${index}`" class="card-item">
           <el-image @load="imageLoaded(itemData, `card-${index}`)" @error="imageLoaded(itemData, `card-${index}`)"
-            :src="itemData.url">
+            :src="itemData.url" @click="toDetail(itemData)">
           </el-image>
           <div class="heart" @click="heartClick(itemData)">
             <img v-show="itemData.heart === false" src="../../../assets/image/dataBase/heart.png">
@@ -94,7 +94,14 @@ export default {
           label: '花卉',
           children: [
             {
-              label: '1'
+              label: '1',
+              children: [
+                { label: 'a' },
+                { label: 'b' },
+                { label: 'c' },
+                { label: 'd' },
+                { label: 'e' },
+              ]
             },
             {
               label: '2'
@@ -131,6 +138,10 @@ export default {
     }
   },
   methods: {
+    // 详情页通过id查询详情
+    toDetail(itemData){
+      this.$router.push(`Detail?id=${itemData.id}`)
+    },
     // 列表图片load回调布局
     imageLoaded(itemData, refName) {
       itemData.load = false
@@ -391,6 +402,7 @@ export default {
       width: 420px;
       margin-top: -10vh;
     }
+
     flex: 1;
     display: flex;
     align-items: center;

@@ -13,6 +13,7 @@ module.exports = {
       "Cross-Origin-Resource-Policy": "cross-origin",
     },
     disableHostCheck:true,
+    hot: true
     // port:8000
     // host:'127.0.0.1'
   },

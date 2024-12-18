@@ -1,6 +1,7 @@
 <template>
   <div class="dataBase-page">
     <p style="height: 80px;"></p>
+    <!-- search 重复 -->
     <div class="search-list">
       <div class="search-options">
         <div class="search-item search-type" :class="isFocType ? 'sh-select' : ''">
@@ -31,16 +32,11 @@
       </div>
     </div>
     <div class="list-container">
-      <div class="card-grid" v-show="listData.length != 0" v-infinite-scroll="loadData">
-        <!-- 联系客服 -->
-        <div class="chart">
-          <img src="../../../assets/image/dataBase/chart.png" alt="">
-          <div>联系客服</div>
-        </div>
+      <div class="card-grid" v-show="listData.length != 0">
         <div v-for="(itemData, index) in listData.filter((i, index) => index < randerIndex)" :key="index"
           :ref="`card-${index}`" class="card-item">
           <el-image @load="imageLoaded(itemData, `card-${index}`)" @error="imageLoaded(itemData, `card-${index}`)"
-            :src="itemData.url">
+            :src="itemData.url" @click="toDetail(itemData)">
           </el-image>
           <div class="heart" @click="heartClick(itemData)">
             <img v-show="itemData.heart === false" src="../../../assets/image/dataBase/heart.png">
@@ -60,7 +56,6 @@ export default {
   data() {
     return {
       listData: [],
-      randerIndex: 0,
       searchConfig: {
         type: "",
         sort: "",
@@ -144,7 +139,7 @@ export default {
     // 所有图片重新布局
     reloadLayout() {
       this.$nextTick(() => {
-        this.listData.filter((i, index) => index < this.randerIndex).forEach((itemData, index) => {
+        this.listData.forEach((itemData, index) => {
           const el = this.$refs[`card-${index}`][0]
           const rows = Math.ceil(el.clientHeight / 5) + 2
           el.style.gridRowEnd = `span ${rows}`
@@ -208,13 +203,9 @@ export default {
         })
         this.listData = randerListData
         // 初始展示条数
-        this.randerIndex = 20
         // 首次布局
         this.reloadLayout()
       }, 1000)
-    },
-    loadData() {
-      this.randerIndex += 10
     },
     // 获取分类配置
     getTypeOptions() { },

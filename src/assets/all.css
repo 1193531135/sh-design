@@ -61,9 +61,11 @@ textarea {
 }
 /* 级联弹窗 */
 .sh-popuop .el-cascader-panel .el-cascader-menu{
-  border: 0;
   min-width: 120px;
   overflow: hidden;
+}
+.sh-popuop .el-cascader-panel .el-cascader-menu:nth-child(1){
+  border: 0;
 }
 .sh-popuop .el-cascader-panel .el-cascader-menu .el-cascader-menu__list{
   padding: 0;
