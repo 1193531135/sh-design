@@ -127,7 +127,9 @@ export default {
       searchFoc: false,
       // 详情数据
       detailData: {
-        imageUrlList:[]
+        coverImage:"",
+        imageUrlList:[],
+        type:"",
       }
     };
   },
