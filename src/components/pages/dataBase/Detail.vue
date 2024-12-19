@@ -32,6 +32,16 @@
       </div>
     </div>
     <div class="list-container">
+      <div class="dataDetail">
+        <div class="image-container">
+          <el-carousel :interval="5000" arrow="always" trigger="click">
+            <el-carousel-item v-for="item in 4" :key="item">
+              <h3>{{ item }}</h3>
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+        <div class="message-container"></div>
+      </div>
       <div class="card-grid" v-show="listData.length != 0">
         <div v-for="(itemData, index) in listData.filter((i, index) => index < randerIndex)" :key="index"
           :ref="`card-${index}`" class="card-item">
@@ -43,9 +53,6 @@
             <img v-show="itemData.heart === true" src="../../../assets/image/dataBase/heart-red.png">
           </div>
         </div>
-      </div>
-      <div class="no-data" v-show="listData.length === 0">
-        <img src="../../../assets/image/dataBase/noData.png" alt="">
       </div>
     </div>
   </div>
@@ -118,6 +125,10 @@ export default {
       isFocType: false,
       isFocSort: false,
       searchFoc: false,
+      // 详情数据
+      detailData: {
+        imageUrlList:[]
+      }
     };
   },
   computed: {
@@ -377,15 +388,13 @@ export default {
     width: 0;
   }
 
-  .no-data {
-    img {
-      width: 420px;
-      margin-top: -10vh;
+  .dataDetail {
+    margin: auto;
+
+    .image-container {
+      width: 1000px;
+      height: 800px;
     }
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
   }
 }
 

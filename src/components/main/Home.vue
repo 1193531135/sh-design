@@ -1,7 +1,7 @@
 <template>
   <div :style="colorRender()">
     <LoadingPage v-show="loading"></LoadingPage>
-    <div class="home-main" v-show="loaded">
+    <div class="home-main" v-if="loaded">
       <Headers class="home-head"></Headers>
       <div class="home-con">
         <router-view class="page-con" />

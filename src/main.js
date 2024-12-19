@@ -8,6 +8,8 @@ import store from './store'
 import toolJs from './tool'
 import md5 from 'md5'
 import less from 'less'
+import Magnifier from 'magnifier.js';
+
 Vue.use(less)
 window.runType = process.env.NODE_ENV
 // 公用组件注册
@@ -19,6 +21,7 @@ Vue.use(ElementUI)
 // Object.prototype.length = function(){ return Object.keys(this).length }
 Vue.prototype.$md5 = md5
 Vue.prototype.$loading = Loading
+Vue.prototype.$Magnifier = Magnifier
 Vue.prototype.$message = (obj) => {
   obj = {
     ...obj

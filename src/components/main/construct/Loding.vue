@@ -36,6 +36,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 4;
 }
 .icon-container{
   width: 23.43vh;
