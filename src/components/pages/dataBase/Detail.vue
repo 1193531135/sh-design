@@ -127,10 +127,27 @@ export default {
       searchFoc: false,
       // 详情数据
       detailData: {
-        coverImage:"",
+        coverImageUrl:"https://s3-alpha-sig.figma.com/img/54f7/d477/719855b098048dcbeb5d5cdd679fa36d?Expires=1735516800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iHsTCOaaEBkUhDjStvgD1uUhZzyDkJFfOsunN6Xwvag5vbufmYJDlYOyzAKW~aZW408ev2j35KMXCnpJhp28iq7A1QPLSR~3SyBF4fAuXDFE2QdxHxQg~TIYKotyHWh4gAsu6mL2GNHaZCMxKDDQeRYO230pLqd3tTyumt3BhihxSzoBf5Bf7kCq5CCysHAacHFiHWyaEwBWCHTSGL-VhNhGFNI0Y-6VcwCW7BVJ2qW-Qu1rZVbW~9ZvuCi7R3J5OWTOvBHekB6WwViuFyl3JcSw9qTnDlLGAlNcyHkyBroeQ1Q4K-TRymI-B1hYaGpouQvWQn-NyIyiV9ENo2cFnA__",
         imageUrlList:[],
-        type:"",
-      }
+        goodsType:"抽象/花卉",
+        title:"哥特花园迷惑的花朵",
+        isHeart:true,
+        licenseType:1,
+        price:236,
+        unitWidth:"12.0",
+        unitHeight:"12.0",
+        flowerMaxWidth:"2.5",
+        otherProducts:[
+          { id:1,coverImageUrl:'' },
+          { id:2,coverImageUrl:'' },
+          { id:3,coverImageUrl:'' },
+          { id:4,coverImageUrl:'' },
+          { id:5,coverImageUrl:'' },
+        ]
+      },
+      licenseTypeOptions:[
+        { label:"版权",value:1,point:"问号中的提示" }
+      ]
     };
   },
   computed: {
@@ -391,11 +408,15 @@ export default {
   }
 
   .dataDetail {
-    margin: auto;
-
+    margin:0 auto;
+    display: flex;
+    gap: 30px;
     .image-container {
       width: 1000px;
       height: 800px;
+    }
+    .message-container{
+      width: 370px;
     }
   }
 }
