@@ -64,7 +64,7 @@ export default {
 
 .home-main {
   background-color: rgb(247, 247, 247);
-
+  min-width: 1440px;
   position: absolute;
   top: 0;
   bottom: 0;

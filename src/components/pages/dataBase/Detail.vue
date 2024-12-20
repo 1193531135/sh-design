@@ -31,12 +31,12 @@
         </div>
       </div>
     </div>
-    <div class="list-container">
+    <div class="list-container" v-loading="loading">
       <div class="dataDetail">
         <div class="image-container">
-          <el-carousel :interval="5000" arrow="always" trigger="click">
-            <el-carousel-item v-for="item in 4" :key="item">
-              <h3>{{ item }}</h3>
+          <el-carousel :autoplay="false" arrow="always" trigger="click" height="800px">
+            <el-carousel-item v-for="item in detailData.imageUrlList" :key="item">
+              <el-image class="card-image" :src="item" fit="contain"></el-image>
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -127,26 +127,23 @@ export default {
       searchFoc: false,
       // 详情数据
       detailData: {
-        coverImageUrl:"https://s3-alpha-sig.figma.com/img/54f7/d477/719855b098048dcbeb5d5cdd679fa36d?Expires=1735516800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=iHsTCOaaEBkUhDjStvgD1uUhZzyDkJFfOsunN6Xwvag5vbufmYJDlYOyzAKW~aZW408ev2j35KMXCnpJhp28iq7A1QPLSR~3SyBF4fAuXDFE2QdxHxQg~TIYKotyHWh4gAsu6mL2GNHaZCMxKDDQeRYO230pLqd3tTyumt3BhihxSzoBf5Bf7kCq5CCysHAacHFiHWyaEwBWCHTSGL-VhNhGFNI0Y-6VcwCW7BVJ2qW-Qu1rZVbW~9ZvuCi7R3J5OWTOvBHekB6WwViuFyl3JcSw9qTnDlLGAlNcyHkyBroeQ1Q4K-TRymI-B1hYaGpouQvWQn-NyIyiV9ENo2cFnA__",
-        imageUrlList:[],
-        goodsType:"抽象/花卉",
-        title:"哥特花园迷惑的花朵",
-        isHeart:true,
-        licenseType:1,
-        price:236,
-        unitWidth:"12.0",
-        unitHeight:"12.0",
-        flowerMaxWidth:"2.5",
-        otherProducts:[
-          { id:1,coverImageUrl:'' },
-          { id:2,coverImageUrl:'' },
-          { id:3,coverImageUrl:'' },
-          { id:4,coverImageUrl:'' },
-          { id:5,coverImageUrl:'' },
-        ]
+        coverImageUrl: "",
+        imageUrlList: [],
+        goodsType: "",
+        title: "",
+        isHeart: true,
+        licenseType: 0,
+        price: 0,
+        unitWidth: "",
+        unitHeight: "",
+        flowerMaxWidth: "",
+        otherProducts: []
       },
-      licenseTypeOptions:[
-        { label:"版权",value:1,point:"问号中的提示" }
+      // 页面加载状态
+      loading: false,
+      // 版权对应的映射
+      licenseTypeOptions: [
+        { label: "版权", value: 1, point: "问号中的提示" }
       ]
     };
   },
@@ -182,60 +179,10 @@ export default {
         this.$refs.input.focus()
       })
     },
-    // 获取后台列表数据
+    // 携带查询参数前往查询页面
     getListData() {
       this.searchFoc = false
-      setTimeout(() => {
-        const responese = {
-          status: 200,
-          data: {
-            code: 200,
-            data: [
-              { url: "https://th.bing.com/th/id/OIP.AnfpGRH9jn5ISlr-MRh7PwHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.AnfpGRH9jn5ISlr-MRh7PwHaHa?123", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.Sd5fZmx5V064n2B4v5kVlgHaFT", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.aacN2mrGOPxMdnO9RG9NJwHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.Kum8his5jIIH0U4zlV46GQHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.ccAGfkHGtJ4CNqD7AD_AbgHaHQ", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.NukYPnWHTwNxgfn5zp22TgHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.Vx8OfvbfX4ZEpFxP05vj_gHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.wm-O33o4GamI5C3O4GJpIQHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.YFIYgExQTg-yGtiVp2es8gHaIO", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.sM12wu1cQlq-7_6nTSx0ywHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.3AbuIshgNRobf190FR6vTQHaFj", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.QBJ8DQgk6iLB-vKWVDtRYAHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.GuGKa8bmMqkhqbJLKGNYywHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.682w5icroBT76KIvze665AHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.kX5rlFiVwkleetaz2LX2MgHaJQ", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.H_glcHLe6pj0NyLY_cdjvgHaHL", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.idn8yhl_41JWeeelsIInFwHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.R2IOeYTxw_0pwC0qX7tm0AHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.BaSc9hL_BLgkhnauyLj0zwHaGl", heart: false },
-            ],
-            message: "SUCCESS"
-          }
-        }
-        let randerListData = responese.data.data
-        // 模拟数据代码块，和responese一起删除
-        {
-          // 模拟数据 复制多个假数据
-          responese.data.data.some(i => { i.url = i.url + '?' + parseInt(Math.random() * 100) })
-          for (let i = 0; i < 4; i++) {
-            randerListData.push(...randerListData)
-          }
-        }
-        // 初始化load 状态
-        const img = document.createElement('img')
-        randerListData.some(i => {
-          // 已缓存的图片不再重复加载
-          img.src = i.url
-          i.load = !img.complete
-        })
-        this.listData = randerListData
-        // 初始展示条数
-        // 首次布局
-        this.reloadLayout()
-      }, 1000)
+      this.$router.push({ path: "list", query: { searchConfigJSON: JSON.stringify(this.searchConfig) } })
     },
     // 获取分类配置
     getTypeOptions() { },
@@ -262,14 +209,57 @@ export default {
       // if (rep.error) {
       //   cardData.heart = !goalState
       // }
+    },
+    // 获取详情数据
+    getDetailData(id) {
+      // 开启加载
+      this.loading = true
+      // 通过query中的id查询详情数据
+      setTimeout(() => {
+        // 假数据
+        const responese = {
+          coverImageUrl: "https://th.bing.com/th/id/OIP.wcbysipl02V7tb8qmFIejQHaGk?w=192&h=180&c=7&r=0&o=5&pid=1.7",
+          imageUrlList: [
+            { url: "https://th.bing.com/th/id/OIP.J6F-PbYsWm3K_RhrAXjV4wHaE7?w=226&h=180&c=7&r=0&o=5&pid=1.7" },
+            { url: "https://th.bing.com/th/id/OIP.YzkB0Ho9GM321YoMzHQHjQHaFo?w=234&h=180&c=7&r=0&o=5&pid=1.7" },
+            { url: "https://th.bing.com/th/id/OIP.wcbysipl02V7tb8qmFIejQHaGk?w=192&h=180&c=7&r=0&o=5&pid=1.7" },
+            { url: "https://th.bing.com/th/id/OIP.gLoEb4u25t9BqIuzlWRBxQHaFL?w=255&h=180&c=7&r=0&o=5&pid=1.7" }
+          ],
+          goodsType: "抽象/花卉",
+          title: "哥特花园迷惑的花朵",
+          isHeart: true,
+          licenseType: 1,
+          price: 236,
+          unitWidth: "12.0",
+          unitHeight: "12.0",
+          flowerMaxWidth: "2.5",
+          otherProducts: [
+            { id: 1, coverImageUrl: '' },
+            { id: 2, coverImageUrl: '' },
+            { id: 3, coverImageUrl: '' },
+            { id: 4, coverImageUrl: '' },
+            { id: 5, coverImageUrl: '' },
+          ]
+        }
+        // 无论成功失败，关闭加载
+        this.loading = false
+        let detail = responese
+        // 对需要放大处理的图片做本地化处理
+        const img = document.createElement('img')
+        detail.imageUrlList.some(i => {
+          img.src = i.url
+          i.load = !img.complete
+        })
+        this.detailData = detail
+      }, 1000)
     }
   },
   watch: {},
   mounted() {
-    // 获取url带过来的查询参数
-    this.searchConfig.name = this.$route.query.search || ""
-    // 查询
-    this.getListData()
+    // 如果有携带的 searchConfigJSON 就读取
+    if (this.$route.query.searchConfigJSON) {
+      this.searchConfig = JSON.parse(this.$route.query.searchConfigJSON)
+    }
   },
 };
 </script>
@@ -408,14 +398,22 @@ export default {
   }
 
   .dataDetail {
-    margin:0 auto;
+    margin: 0 auto;
     display: flex;
     gap: 30px;
+
     .image-container {
       width: 1000px;
       height: 800px;
+      background-color: #F8F8F8;
+
+      .card-image {
+        width: 100%;
+        height: 100%;
+      }
     }
-    .message-container{
+
+    .message-container {
       width: 370px;
     }
   }

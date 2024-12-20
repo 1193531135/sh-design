@@ -139,8 +139,8 @@ export default {
   },
   methods: {
     // 详情页通过id查询详情
-    toDetail(itemData){
-      this.$router.push(`Detail?id=${itemData.id}`)
+    toDetail(itemData) {
+      this.$router.push(`detail?id=${itemData.id}&searchConfigJSON=${JSON.stringify(this.searchConfig)}`)
     },
     // 列表图片load回调布局
     imageLoaded(itemData, refName) {
@@ -258,6 +258,10 @@ export default {
   mounted() {
     // 获取url带过来的查询参数
     this.searchConfig.name = this.$route.query.search || ""
+    // 如果有携带的 searchConfigJSON 就读取
+    if (this.$route.query.searchConfigJSON) {
+      this.searchConfig = JSON.parse(this.$route.query.searchConfigJSON)
+    } 
     // 查询
     this.getListData()
   },
