@@ -1,7 +1,7 @@
 <template>
   <div class="bgcdiv" :style="colorRender()">
     <div class="tit_text">
-      <img :src="icon" alt style="padding-left:20px" />
+      <img :src="icon" alt style="padding-left:30px" />
     </div>
     <div class="head-list">
       <div :class="`head-list-item ${headList[item].select ? 'selected' : ''}`" v-for="item in Object.keys(headList)"
@@ -226,7 +226,7 @@ export default {
 }
 
 .tit_text img {
-  height: 39px;
+  height: 42px;
   object-fit: contain;
   margin-right: 10px;
   top: -3px;

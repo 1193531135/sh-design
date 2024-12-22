@@ -177,26 +177,7 @@ export default {
           data: {
             code: 200,
             data: [
-              { url: "https://th.bing.com/th/id/OIP.AnfpGRH9jn5ISlr-MRh7PwHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.AnfpGRH9jn5ISlr-MRh7PwHaHa?123", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.Sd5fZmx5V064n2B4v5kVlgHaFT", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.aacN2mrGOPxMdnO9RG9NJwHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.Kum8his5jIIH0U4zlV46GQHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.ccAGfkHGtJ4CNqD7AD_AbgHaHQ", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.NukYPnWHTwNxgfn5zp22TgHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.Vx8OfvbfX4ZEpFxP05vj_gHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.wm-O33o4GamI5C3O4GJpIQHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.YFIYgExQTg-yGtiVp2es8gHaIO", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.sM12wu1cQlq-7_6nTSx0ywHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.3AbuIshgNRobf190FR6vTQHaFj", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.QBJ8DQgk6iLB-vKWVDtRYAHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.GuGKa8bmMqkhqbJLKGNYywHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.682w5icroBT76KIvze665AHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.kX5rlFiVwkleetaz2LX2MgHaJQ", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.H_glcHLe6pj0NyLY_cdjvgHaHL", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.idn8yhl_41JWeeelsIInFwHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.R2IOeYTxw_0pwC0qX7tm0AHaHa", heart: false },
-              { url: "https://th.bing.com/th/id/OIP.BaSc9hL_BLgkhnauyLj0zwHaGl", heart: false },
+              { url: "https://cdn.pixabay.com/photo/2024/12/18/23/30/red-9276345_640.jpg", heart: false },
             ],
             message: "SUCCESS"
           }
