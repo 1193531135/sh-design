@@ -118,7 +118,6 @@ export default {
         this.$refs.input.focus()
       })
     },
-    // 获取后台列表数据
     searchData() {
       this.searchFoc = false
       this.searchChange()
