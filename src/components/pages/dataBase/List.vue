@@ -1,35 +1,6 @@
 <template>
   <div class="dataBase-page">
-    <p style="height: 80px;"></p>
-    <div class="search-list">
-      <div class="search-options">
-        <div class="search-item search-type" :class="isFocType ? 'sh-select' : ''">
-          <span class="search-title-text">{{ "分类" }}</span>
-          <img src="../../../assets/image/home/select-down.png" alt="">
-          <el-cascader v-model="searchConfig.type" :options="typeOptions" @visible-change="(val) => isFocType = val"
-            placement="bottom-start" popper-class="sh-popuop"
-            :props="{ expandTrigger: 'hover', emitPath: false, value: 'label' }"></el-cascader>
-        </div>
-        <div class="search-item search-sort" :class="isFocSort ? 'sh-select' : ''">
-          <span class="search-title-text">{{ "综合排序" }}</span>
-          <img src="../../../assets/image/home/select-down.png" alt="">
-          <el-select v-model="searchConfig.sort" popper-class="sh-popuop" @visible-change="(val) => isFocSort = val">
-            <el-option v-for="item in SortOptions" :key="item.label" :value="item.label">
-              <span>{{ item.label }}</span>
-              <i class="el-icon-check" style="position: absolute;right: 10px;opacity: 0;"></i>
-            </el-option>
-          </el-select>
-        </div>
-      </div>
-      <div class="search-input" @click="searchClick">
-        <img class="search-icon" src="../../../assets/image/home/search.png" />
-        <div class="search-content">
-          <span class="search-text-card" v-show="!searchFoc && searchConfig.name">{{ searchConfig.name }}</span>
-          <input ref="input" class="search-input-text" v-show="searchFoc" v-model="searchConfig.name" type="text"
-            @keyup.enter="getListData">
-        </div>
-      </div>
-    </div>
+    <Search ref="search"></Search>
     <div class="list-container">
       <div class="card-grid" v-show="listData.length != 0" v-infinite-scroll="loadData">
         <!-- 联系客服 -->
@@ -55,92 +26,19 @@
   </div>
 </template>
 <script>
-
+import Search from './Search.vue'
 export default {
+  components:{ Search },
   data() {
     return {
       listData: [],
       randerIndex: 0,
-      searchConfig: {
-        type: "",
-        sort: "",
-        name: ""
-      },
-      typeOptions: [
-        {
-          label: '抽象',
-          children: [
-            {
-              label: '几何'
-            },
-            {
-              label: '条格'
-            },
-            {
-              label: '花卉'
-            },
-            {
-              label: '北欧极简'
-            },
-            {
-              label: '肌理'
-            },
-            {
-              label: '渐变'
-            },
-          ]
-        },
-        {
-          label: '花卉',
-          children: [
-            {
-              label: '1',
-              children: [
-                { label: 'a' },
-                { label: 'b' },
-                { label: 'c' },
-                { label: 'd' },
-                { label: 'e' },
-              ]
-            },
-            {
-              label: '2'
-            },
-            {
-              label: '3'
-            },
-            {
-              label: '4'
-            },
-            {
-              label: '5'
-            },
-            {
-              label: '6'
-            },
-          ]
-        },
-      ],
-      SortOptions: [
-        { label: "价格从低到高" },
-        { label: "价格从高到低" },
-        { label: "最多收藏" },
-        { label: "最新作品" },
-      ],
-      isFocType: false,
-      isFocSort: false,
-      searchFoc: false,
     };
-  },
-  computed: {
-    styleType() {
-      return this.$store.state.styleConfig.styleType
-    }
   },
   methods: {
     // 详情页通过id查询详情
     toDetail(itemData) {
-      this.$router.push(`detail?id=${itemData.id}&searchConfigJSON=${JSON.stringify(this.searchConfig)}`)
+      this.$router.push(`detail?id=${itemData.id}&searchConfigJSON=${JSON.stringify(this.$refs.search.searchConfig)}`)
     },
     // 列表图片load回调布局
     imageLoaded(itemData, refName) {
@@ -162,15 +60,8 @@ export default {
         })
       })
     },
-    searchClick() {
-      this.searchFoc = true
-      this.$nextTick(() => {
-        this.$refs.input.focus()
-      })
-    },
     // 获取后台列表数据
     getListData() {
-      this.searchFoc = false
       setTimeout(() => {
         const responese = {
           status: 200,
@@ -208,10 +99,6 @@ export default {
     loadData() {
       this.randerIndex += 10
     },
-    // 获取分类配置
-    getTypeOptions() { },
-    // 获取排序配置
-    getSortOptions() { },
     // 设置like
     async heartClick(cardData) {
       let goalState = !cardData.heart
@@ -238,10 +125,10 @@ export default {
   watch: {},
   mounted() {
     // 获取url带过来的查询参数
-    this.searchConfig.name = this.$route.query.search || ""
+    this.$refs.search.searchConfig.name = this.$route.query.search || ""
     // 如果有携带的 searchConfigJSON 就读取
     if (this.$route.query.searchConfigJSON) {
-      this.searchConfig = JSON.parse(this.$route.query.searchConfigJSON)
+      this.$refs.search.searchConfig = JSON.parse(this.$route.query.searchConfigJSON)
     } 
     // 查询
     this.getListData()

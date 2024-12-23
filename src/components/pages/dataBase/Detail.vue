@@ -1,36 +1,6 @@
 <template>
   <div class="dataBase-page">
-    <p style="height: 80px;"></p>
-    <!-- search 重复 -->
-    <div class="search-list">
-      <div class="search-options">
-        <div class="search-item search-type" :class="isFocType ? 'sh-select' : ''">
-          <span class="search-title-text">{{ "分类" }}</span>
-          <img src="../../../assets/image/home/select-down.png" alt="">
-          <el-cascader v-model="searchConfig.type" :options="typeOptions" @visible-change="(val) => isFocType = val"
-            placement="bottom-start" popper-class="sh-popuop"
-            :props="{ expandTrigger: 'hover', emitPath: false, value: 'label' }"></el-cascader>
-        </div>
-        <div class="search-item search-sort" :class="isFocSort ? 'sh-select' : ''">
-          <span class="search-title-text">{{ "综合排序" }}</span>
-          <img src="../../../assets/image/home/select-down.png" alt="">
-          <el-select v-model="searchConfig.sort" popper-class="sh-popuop" @visible-change="(val) => isFocSort = val">
-            <el-option v-for="item in SortOptions" :key="item.label" :value="item.label">
-              <span>{{ item.label }}</span>
-              <i class="el-icon-check" style="position: absolute;right: 10px;opacity: 0;"></i>
-            </el-option>
-          </el-select>
-        </div>
-      </div>
-      <div class="search-input" @click="searchClick">
-        <img class="search-icon" src="../../../assets/image/home/search.png" />
-        <div class="search-content">
-          <span class="search-text-card" v-show="!searchFoc && searchConfig.name">{{ searchConfig.name }}</span>
-          <input ref="input" class="search-input-text" v-show="searchFoc" v-model="searchConfig.name" type="text"
-            @keyup.enter="getListData">
-        </div>
-      </div>
-    </div>
+    <Search ref="search"></Search>
     <div class="list-container" v-loading="loading">
       <div class="dataDetail">
         <div class="image-container">
@@ -111,72 +81,12 @@
   </div>
 </template>
 <script>
+import Search from './Search.vue'
 export default {
+  components:{ Search },
   data() {
     return {
       listData: [],
-      searchConfig: {
-        type: "",
-        sort: "",
-        name: ""
-      },
-      typeOptions: [
-        {
-          label: '抽象',
-          children: [
-            {
-              label: '几何'
-            },
-            {
-              label: '条格'
-            },
-            {
-              label: '花卉'
-            },
-            {
-              label: '北欧极简'
-            },
-            {
-              label: '肌理'
-            },
-            {
-              label: '渐变'
-            },
-          ]
-        },
-        {
-          label: '花卉',
-          children: [
-            {
-              label: '1'
-            },
-            {
-              label: '2'
-            },
-            {
-              label: '3'
-            },
-            {
-              label: '4'
-            },
-            {
-              label: '5'
-            },
-            {
-              label: '6'
-            },
-          ]
-        },
-      ],
-      SortOptions: [
-        { label: "价格从低到高" },
-        { label: "价格从高到低" },
-        { label: "最多收藏" },
-        { label: "最新作品" },
-      ],
-      isFocType: false,
-      isFocSort: false,
-      searchFoc: false,
       // 详情数据
       detailData: {
         coverImageUrl: "",
@@ -198,11 +108,6 @@ export default {
         { label: "版权", value: 1, point: "问号中的提示" }
       ]
     };
-  },
-  computed: {
-    styleType() {
-      return this.$store.state.styleConfig.styleType
-    }
   },
   methods: {
     // 更新数据
@@ -303,15 +208,8 @@ export default {
         })
       })
     },
-    searchClick() {
-      this.searchFoc = true
-      this.$nextTick(() => {
-        this.$refs.input.focus()
-      })
-    },
     // 携带查询参数前往查询页面
     getListData() {
-      this.searchFoc = false
       this.$router.push({ path: "list", query: { searchConfigJSON: JSON.stringify(this.searchConfig) } })
     },
     // 获取分类配置
