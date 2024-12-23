@@ -1,7 +1,7 @@
 <template>
-  <div class="dataBase-page">
-    <Search ref="search"></Search>
-    <div class="list-container" v-loading="loading">
+  <div class="dataBase-page" v-loading="loading">
+    <Search ref="search" :searchChange="getListData"></Search>
+    <div class="list-container">
       <div class="dataDetail">
         <div class="image-container">
           <el-carousel :autoplay="false" arrow="always" trigger="click" height="800px">
@@ -112,7 +112,7 @@ export default {
   methods: {
     // 更新数据
     toDetail(itemData) {
-      this.$router.push(`detail?id=${itemData.id}&searchConfigJSON=${JSON.stringify(this.searchConfig)}`)
+      this.$router.push(`detail?id=${itemData.id}&searchConfigJSON=${JSON.stringify(this.$refs.search.searchConfig)}`).catch(err => console.log('正常的同路由跳转报错'))
       this.getDetailData(itemData.id)
     },
     // 获取证书类型的映射值
@@ -210,7 +210,7 @@ export default {
     },
     // 携带查询参数前往查询页面
     getListData() {
-      this.$router.push({ path: "list", query: { searchConfigJSON: JSON.stringify(this.searchConfig) } })
+      this.$router.push({ path: "list", query: { searchConfigJSON: JSON.stringify(this.$refs.search.searchConfig) } })
     },
     // 获取分类配置
     getTypeOptions() { },
@@ -315,7 +315,7 @@ export default {
   mounted() {
     // 如果有携带的 searchConfigJSON 就读取
     if (this.$route.query.searchConfigJSON) {
-      this.searchConfig = JSON.parse(this.$route.query.searchConfigJSON)
+      this.$refs.search.searchConfig = JSON.parse(this.$route.query.searchConfigJSON)
     }
     this.getDetailData()
   },

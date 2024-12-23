@@ -1,7 +1,7 @@
 <template>
   <div class="dataBase-page">
-    <Search ref="search"></Search>
-    <div class="list-container">
+    <Search ref="search" :searchChange="getListData"></Search>
+    <div class="list-container" v-loading="loading">
       <div class="card-grid" v-show="listData.length != 0" v-infinite-scroll="loadData">
         <!-- 联系客服 -->
         <div class="chart">
@@ -33,6 +33,7 @@ export default {
     return {
       listData: [],
       randerIndex: 0,
+      loading:false
     };
   },
   methods: {
@@ -62,6 +63,10 @@ export default {
     },
     // 获取后台列表数据
     getListData() {
+      // 通过ref获取查询数据
+      const searchConfig = this.$refs.search.searchConfig
+      this.loading = true
+      console.log(searchConfig)
       setTimeout(() => {
         const responese = {
           status: 200,
@@ -94,6 +99,8 @@ export default {
         this.randerIndex = 20
         // 首次布局
         this.reloadLayout()
+        // 数据加载完毕关闭load
+        this.loading = false
       }, 1000)
     },
     loadData() {

@@ -4,14 +4,14 @@
       <div class="search-item search-type" :class="isFocType ? 'sh-select' : ''">
         <span class="search-title-text">{{ "分类" }}</span>
         <img src="../../../assets/image/home/select-down.png" alt="">
-        <el-cascader v-model="searchConfig.type" :options="typeOptions" @visible-change="(val) => isFocType = val"
+        <el-cascader v-model="searchConfig.type" :options="typeOptions" @visible-change="(val) => isFocType = val" @change="searchChange"
           placement="bottom-start" popper-class="sh-popuop"
           :props="{ expandTrigger: 'hover', emitPath: false, value: 'label' }"></el-cascader>
       </div>
       <div class="search-item search-sort" :class="isFocSort ? 'sh-select' : ''">
         <span class="search-title-text">{{ "综合排序" }}</span>
         <img src="../../../assets/image/home/select-down.png" alt="">
-        <el-select v-model="searchConfig.sort" popper-class="sh-popuop" @visible-change="(val) => isFocSort = val">
+        <el-select v-model="searchConfig.sort" popper-class="sh-popuop" @visible-change="(val) => isFocSort = val" @change="searchChange">
           <el-option v-for="item in SortOptions" :key="item.label" :value="item.label">
             <span>{{ item.label }}</span>
             <i class="el-icon-check" style="position: absolute;right: 10px;opacity: 0;"></i>
@@ -32,7 +32,7 @@
 <script>
 
 export default {
-  props:["getListData"],
+  props:["searchChange"],
   data() {
     return {
       listData: [],
@@ -121,7 +121,7 @@ export default {
     // 获取后台列表数据
     searchData() {
       this.searchFoc = false
-      this.getListData()
+      this.searchChange()
     },
     // 获取分类配置
     getTypeOptions() { },
