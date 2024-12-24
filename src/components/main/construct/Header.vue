@@ -290,6 +290,7 @@ export default {
 
     >img {
       padding: 10px;
+      cursor: pointer;
     }
 
     .el-dropdown {

@@ -36,7 +36,15 @@ let routes = [
           {
             path: '/shopping-cart/card',
             component:() => import("../components/pages/shoppingCart/Cart.vue"),
-          }
+          },
+          {
+            path: '/shopping-cart/order-input',
+            component:() => import("../components/pages/shoppingCart/orderFill.vue"),
+          },
+          {
+            path: '/shopping-cart/order-pay',
+            component:() => import("../components/pages/shoppingCart/orderPay.vue"),
+          },
         ]
       },
     ]
