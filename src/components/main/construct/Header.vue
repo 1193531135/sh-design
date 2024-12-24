@@ -162,7 +162,9 @@ export default {
       })
     },
     toHeart() { },
-    toCart() { },
+    toCart() {
+      this.$router.push("/shopping-cart/card")
+    },
     accountSelect(command) {
       if (command === "signout") {
         this.$confirm("Are you sure?", "hint", { type: "warning" })

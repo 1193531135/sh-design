@@ -29,6 +29,16 @@ let routes = [
         name: "dataBase",
         component:() => import("../components/pages/dataBase/Detail.vue")
       },
+      {
+        path: '/shopping-cart',
+        component:() => import("../components/pages/shoppingCart/Index.vue"),
+        children:[
+          {
+            path: '/shopping-cart/card',
+            component:() => import("../components/pages/shoppingCart/Cart.vue"),
+          }
+        ]
+      },
     ]
   },
 ]
