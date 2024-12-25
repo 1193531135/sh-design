@@ -1,6 +1,6 @@
 <template>
   <div class="order-container">
-    <p style="height: 80px;"></p>
+    <div style="min-height: 80px;"></div>
     <div class="steps">
       <div :class="`steps-item ${active >= index?'is-success':''}`" v-for="(name,index) in stepRander" :key="name">
         <div class="steps-item-line" v-if="index != 0"></div>
