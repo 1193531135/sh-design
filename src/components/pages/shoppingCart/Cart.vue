@@ -29,11 +29,16 @@
       <el-table-column label="操作">
         <template slot-scope="scope">
           <div class="table-options">
-            <div class="options-button hover">
+            <div class="options-button hover" @click="deleteGoods(scope.row)">
               <img src="../../../assets/image/home/delete.png" alt="">删除
             </div>
-            <div class="options-button hover">
-              <img src="../../../assets/image/home/heart.png" alt="">收藏
+            <div class="options-button hover" @click="heartClick(scope.row)">
+              <template v-if="!scope.row.heart">
+                <img src="../../../assets/image/home/heart.png" alt="">收藏
+              </template>
+              <template v-else>
+                <img src="../../../assets/image/dataBase/heart-red.png" alt="">取消收藏
+              </template>
             </div>
           </div>
         </template>
@@ -69,9 +74,31 @@ export default {
     }
   },
   methods: {
-    deleteGoods() {
-      // 选中的id列表
-      let ids = this.selected.map(i => i.id)
+    // 设置like
+    async heartClick(cardData) {
+      let goalState = !cardData.heart
+      // 先进行页面的状态切换
+      cardData.heart = goalState
+      // let rep = await new Promise((re) => {
+      //   // goalState ? like():doLike()
+      //   goalState ? 
+      //   setTimeout((res) => {
+      //     // 执行like方法
+      //     re(res)
+      //   }):
+      //   setTimeout((res) => {
+      //     // 执行doLike方法
+      //     re(res)
+      //   })
+      // })
+      // // 判断执行失败时，还原列表状态
+      // if (rep.error) {
+      //   cardData.heart = !goalState
+      // }
+    },
+    deleteGoods(row) {
+      // 选中的id列表,有传参取传参，没有取选中的列表
+      let ids = [row.id] || this.selected.map(i => i.id)
       // 接口成功后更新数据
       this.getOrderList()
     },
@@ -89,6 +116,7 @@ export default {
           sum: 1,
           licenseType: 1,
           price: 236,
+          heart:false
         },
         {
           title: "哥特",
@@ -97,6 +125,7 @@ export default {
           sum: 1,
           licenseType: 1,
           price: 456,
+          heart:true
         },
       ]
       // 模拟数据 复制多个假数据
