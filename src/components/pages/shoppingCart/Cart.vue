@@ -1,64 +1,76 @@
 <template>
   <div class="card-container">
-    <div style="margin: 20px 0;font-size: 22px;line-height: 34px;">商品信息</div>
-    <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 1380px"
-      @selection-change="(val) => selected = val">
-      <el-table-column type="selection" width="186">
-      </el-table-column>
-      <el-table-column label="商品" width="480">
-        <template slot-scope="scope">
-          <div class="table-image">
-            <el-image fit="contain" :src="scope.row.coverImage"></el-image>
-            <div style="display: flex;flex-direction: column;gap: 10px;">
-              <div class="table-image-title">{{ scope.row.title }}</div>
-              <div class="table-image-sum">数量：{{ scope.row.sum }}</div>
+    <template v-if="selected.length > 0">
+      <div style="margin: 20px 0;font-size: 22px;line-height: 34px;">商品信息</div>
+      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 1380px"
+        @selection-change="(val) => selected = val">
+        <el-table-column type="selection" width="186">
+        </el-table-column>
+        <el-table-column label="商品" width="480">
+          <template slot-scope="scope">
+            <div class="table-image">
+              <el-image fit="contain" :src="scope.row.coverImage"></el-image>
+              <div style="display: flex;flex-direction: column;gap: 10px;">
+                <div class="table-image-title">{{ scope.row.title }}</div>
+                <div class="table-image-sum">数量：{{ scope.row.sum }}</div>
+              </div>
             </div>
+          </template>
+        </el-table-column>
+        <el-table-column label="许可类型" width="182">
+          <template slot-scope="scope">
+            <div class="table-license">{{ getMappingValue(scope.row.licenseType) }}</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="价格" width="156">
+          <template slot-scope="scope">
+            <div class="table-price">￥{{ scope.row.price }}</div>
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <div class="table-options">
+              <div class="options-button hover" @click="deleteGoods(scope.row)">
+                <img src="../../../assets/image/home/delete.png" alt="">删除
+              </div>
+              <div class="options-button hover" @click="heartClick(scope.row)">
+                <template v-if="!scope.row.heart">
+                  <img src="../../../assets/image/home/heart.png" alt="">收藏
+                </template>
+                <template v-else>
+                  <img src="../../../assets/image/dataBase/heart-red.png" alt="">取消收藏
+                </template>
+              </div>
+            </div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <div class="settle">
+        <div class="btns">
+          <div class="options">
+            <div class="hover" @click="deleteGoods">删除选中商品</div>
+            <div class="hover" @click="clearGoods">清空购物车</div>
           </div>
-        </template>
-      </el-table-column>
-      <el-table-column label="许可类型" width="182">
-        <template slot-scope="scope">
-          <div class="table-license">{{ getMappingValue(scope.row.licenseType) }}</div>
-        </template>
-      </el-table-column>
-      <el-table-column label="价格" width="156">
-        <template slot-scope="scope">
-          <div class="table-price">￥{{ scope.row.price }}</div>
-        </template>
-      </el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="scope">
-          <div class="table-options">
-            <div class="options-button hover" @click="deleteGoods(scope.row)">
-              <img src="../../../assets/image/home/delete.png" alt="">删除
-            </div>
-            <div class="options-button hover" @click="heartClick(scope.row)">
-              <template v-if="!scope.row.heart">
-                <img src="../../../assets/image/home/heart.png" alt="">收藏
-              </template>
-              <template v-else>
-                <img src="../../../assets/image/dataBase/heart-red.png" alt="">取消收藏
-              </template>
-            </div>
+          <div class="settle-message">已选 {{ selected.length }} 件商品 总价：
+            <span style="font-size: 22px;color: #DF3939;font-weight: 700;font-family: Lato;">￥{{ selected.length ?
+              selected.map(i => i.price).reduce((i, j) => i + j) : 0 }}
+            </span>
           </div>
-        </template>
-      </el-table-column>
-    </el-table>
-    <div class="settle">
-      <div class="btns">
-        <div class="options">
-          <div class="hover" @click="deleteGoods">删除选中商品</div>
-          <div class="hover" @click="clearGoods">清空购物车</div>
         </div>
-        <div class="settle-message">已选 {{ selected.length }} 件商品 总价：
-          <span style="font-size: 22px;color: #DF3939;font-weight: 700;font-family: Lato;">￥{{ selected.length ? selected.map(i =>i.price).reduce((i, j) => i + j) : 0 }}
-          </span>
+        <div style="display: flex;flex-direction: row-reverse;">
+          <div class="settle-button hover" @click="inputOrder">去结算</div>
         </div>
       </div>
-      <div style="display: flex;flex-direction: row-reverse;">
-        <div class="settle-button hover" @click="inputOrder">去结算</div>
+    </template>
+    <template v-else>
+      <div class="no-data">
+        <img src="../../../assets/image/cart/no-data.png" alt="">
+        <div class="no-data-description">
+          <div>购物车是空的，快去挑选商品吧</div>
+          <div class="go-shopping-btn hover" @click="router.push('/dataBase/list')">去选购</div>
+        </div>
       </div>
-    </div>
+    </template>
   </div>
 </template>
 <script>
@@ -116,7 +128,7 @@ export default {
           sum: 1,
           licenseType: 1,
           price: 236,
-          heart:false
+          heart: false
         },
         {
           title: "哥特",
@@ -125,7 +137,7 @@ export default {
           sum: 1,
           licenseType: 1,
           price: 456,
-          heart:true
+          heart: true
         },
       ]
       // 模拟数据 复制多个假数据
@@ -135,8 +147,8 @@ export default {
       this.tableData = res
     },
     inputOrder() {
-      this.$router.psuh("/shopping-cart/order-input",{
-        query:{
+      this.$router.psuh("/shopping-cart/order-input", {
+        query: {
           orderMessage: JSON.stringify(this.selected)
         }
       })
@@ -171,6 +183,7 @@ export default {
   /deep/ .el-table__body-wrapper {
     overflow-y: auto;
     flex: 1;
+
     &::-webkit-scrollbar {
       width: 0;
     }
@@ -232,39 +245,47 @@ export default {
       text-align: center;
     }
   }
+
   .table-license,
-  .table-price{
+  .table-price {
     display: flex;
     justify-content: center;
     font-size: 16px;
   }
-  .table-price{
+
+  .table-price {
     font-size: 22px;
     font-family: Lato;
     font-weight: 700;
     color: #DF3939;
   }
+
   .table-image {
     display: flex;
     align-items: center;
     gap: 20px;
+
     .el-image {
       width: 100px;
       height: 100px;
     }
-    .table-image-title{
+
+    .table-image-title {
       font-size: 26px;
     }
-    .table-image-sum{
+
+    .table-image-sum {
       font-size: 16px;
     }
   }
-  .table-options{
+
+  .table-options {
     display: flex;
     gap: 20px;
     font-size: 16px;
     justify-content: center;
-    .options-button{
+
+    .options-button {
       display: flex;
       border-radius: 6px;
       align-items: center;
@@ -275,7 +296,10 @@ export default {
       height: 36px;
       justify-content: center;
       gap: 2px;
-      img{ width: 18px; }
+
+      img {
+        width: 18px;
+      }
     }
   }
 }
@@ -289,6 +313,7 @@ export default {
     height: 48px;
     padding: 0 30px;
     font-weight: 800;
+
     .options {
       display: flex;
       gap: 40px;
@@ -307,6 +332,30 @@ export default {
     font-size: 18px;
     font-weight: 800;
     border-radius: 6px;
+  }
+}
+.no-data{
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  img{ width:260px; }
+  .no-data-description{
+    font-size: 16px;
+    display: flex;
+    padding: 12px 20px;
+    gap: 10px;
+    align-items: center;
+    .go-shopping-btn{
+      background-color: #3D3D51;
+      width: 108px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      color: white;
+    }
   }
 }
 </style>
