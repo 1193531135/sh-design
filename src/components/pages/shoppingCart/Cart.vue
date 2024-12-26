@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <template v-if="selected.length > 0">
+    <template v-if="tableData.length > 0">
       <div style="margin: 20px 0;font-size: 22px;line-height: 34px;">商品信息</div>
       <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 1380px"
         @selection-change="(val) => selected = val">
