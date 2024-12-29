@@ -6,7 +6,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     strict: true,
     state: {
-        // userData
         version: '1.0.0',
         token: null,                //存放token
         defineNowPath: '/',    //基础页面路由
@@ -16,6 +15,8 @@ export default new Vuex.Store({
           styleType: "DARK",
         },
         default_file_url: '',
+        // userData
+        userData: {}
     },
     mutations: {
         modifyData(state, data) {

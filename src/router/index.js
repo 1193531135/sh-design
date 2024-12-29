@@ -12,6 +12,20 @@ let routes = [
     redirect: '/home/list'
   },
   {
+    path: '/account-lr',
+    component:() => import("../components/login/Index.vue"),
+    children:[
+      {
+        path: '/account-lr/register',
+        component:() => import("../components/login/Register.vue"),
+      },
+      {
+        path: '/account-lr/login',
+        component:() => import("../components/login/Login.vue"),
+      },
+    ]
+  },
+  {
     path: '/',
     component:() => import("../components/main/Home.vue"),
     children: [
