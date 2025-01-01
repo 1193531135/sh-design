@@ -61,6 +61,16 @@ let routes = [
           },
         ]
       },
+      {
+        path: '/account-manage',
+        component:() => import("../components/pages/account/Index.vue"),
+        children:[
+          {
+            path: '/account-manage/dovip',
+            component:() => import("../components/pages/account/DoVIP.vue"),
+          },
+        ]
+      },
     ]
   },
 ]

@@ -5,7 +5,8 @@
   --orange: #f07b3f;
   --red: #ea5455;
   --black: #2d4059;
-  -webkit-overflow-scrolling: auto
+  -webkit-overflow-scrolling: auto;
+  --head-height:80px
 }
 
 /* 输入控件字重默认继承父元素 */
